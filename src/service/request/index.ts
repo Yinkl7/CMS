@@ -34,7 +34,6 @@ class MyRequest {
     // 使用全局拦截器
     this.instance.interceptors.request.use(
       (config) => {
-        console.log('所有实例的请求拦截')
         // 添加 loading
         if (this.showLoading) {
           this.loading = ElLoading.service({
@@ -52,13 +51,13 @@ class MyRequest {
 
     this.instance.interceptors.response.use(
       (res) => {
-        console.log('所有实例的响应拦截')
         // 移除loading
         setTimeout(() => {
           this.loading?.close()
         }, 1000)
 
         const data = res.data
+        // console.log(res)
         if (data.returnCode === '-1001') {
           console.log('请求失败')
         } else {
@@ -96,7 +95,6 @@ class MyRequest {
           if (config.interceptors?.responseInterceptor) {
             res = config.interceptors.responseInterceptor(res)
           }
-          console.log(res)
 
           // 2 重置 showLoading 避免印象下一次请求
           this.showLoading = DEFAULT_LOADING

@@ -1,10 +1,11 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { RouteRecordRaw } from 'vue-router'
+import localCache from '@/utils/cache'
 
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    redirect: '/login'
+    redirect: '/main'
   },
   {
     path: '/login',
@@ -19,6 +20,16 @@ const routes: RouteRecordRaw[] = [
 const router = createRouter({
   routes,
   history: createWebHashHistory()
+})
+
+// 导航首位 监听用户是否登陆
+router.beforeEach((to) => {
+  if (to.path !== '/login') {
+    const token = localCache.getCache('token')
+    if (!token) {
+      return '/login'
+    }
+  }
 })
 
 export default router

@@ -1,5 +1,6 @@
 import MyRequest from './request'
 import { BASE_URL, TIMEOUT } from './request/config'
+import loaclCache from '@/utils/cache'
 
 const myRequest = new MyRequest({
   baseURL: BASE_URL,
@@ -7,11 +8,10 @@ const myRequest = new MyRequest({
   interceptors: {
     requestInterceptor: (config) => {
       // 携带 token 的拦截
-      const token = '' // token 获取
+      const token = loaclCache.getCache('token') // token 获取
       if (token) {
         config.headers.Authorization = `Bearer ${token}`
       }
-      console.log('请求拦截')
       return config
     },
 
@@ -20,7 +20,6 @@ const myRequest = new MyRequest({
     },
 
     responseInterceptor: (res) => {
-      console.log('相应拦截')
       return res
     },
 

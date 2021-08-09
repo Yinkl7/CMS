@@ -7,12 +7,11 @@ import { globalRegister } from './global'
 import 'normalize.css'
 import './assets/css/index.less'
 
-import myRequest from './service'
-
 import App from './App.vue'
 
 import router from './router'
 import store from './store'
+import { setupstore } from './store'
 
 const app = createApp(App)
 
@@ -20,6 +19,7 @@ app.use(router)
 app.use(store)
 app.use(globalRegister)
 // app.use(ElementPlus)
+setupstore()
 app.mount('#app')
 
 // console.log(process.env.VUE_APP_BASE_URL)

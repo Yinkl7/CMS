@@ -1,18 +1,18 @@
 <template>
   <div class="login-pannel">
     <h1 class="title">后台管理系统</h1>
-    <el-tabs type="border-card" stretch>
-      <el-tab-pane>
+    <el-tabs type="border-card" stretch v-model="activeTab">
+      <el-tab-pane name="account">
         <template #label>
           <span><i class="el-icon-user-solid"></i> 账号登陆</span>
         </template>
         <login-account ref="accountRef" />
       </el-tab-pane>
-      <el-tab-pane>
+      <el-tab-pane name="phone">
         <template #label>
           <span><i class="el-icon-mobile-phone"></i> 手机登录</span>
         </template>
-        <login-phone />
+        <login-phone ref="phoneRef" />
       </el-tab-pane>
     </el-tabs>
 
@@ -39,19 +39,27 @@ export default defineComponent({
     LoginPhone
   },
   setup() {
-    const isKeepPassword = ref<boolean>(false)
-
+    // 属性定义
+    const isKeepPassword = ref<boolean>(true)
     const accountRef = ref<InstanceType<typeof LoginAccount>>()
+    const phoneRef = ref<InstanceType<typeof LoginPhone>>()
+    const activeTab = ref('account')
 
+    // 方法定义
     const handleLoginClick = () => {
-      // console.log(accountRef.value)
-      accountRef.value?.accountLogin(isKeepPassword.value)
+      if (activeTab.value === 'account') {
+        accountRef.value?.accountLogin(isKeepPassword.value)
+      } else {
+        console.log('调用login-phone页面的方法')
+      }
     }
 
     return {
       isKeepPassword,
-      handleLoginClick,
-      accountRef
+      accountRef,
+      phoneRef,
+      activeTab,
+      handleLoginClick
     }
   }
 })
