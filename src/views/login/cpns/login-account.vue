@@ -23,7 +23,7 @@ import store from '@/store'
 
 export default defineComponent({
   setup() {
-    const state = useStore()
+    const store = useStore()
 
     const account = reactive({
       name: localCache.getCache('name') ?? '',
