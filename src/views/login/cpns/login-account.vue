@@ -19,7 +19,6 @@ import { ElForm } from 'element-plus'
 import { rules } from '../config/account.config'
 
 import localCache from '@/utils/cache'
-import store from '@/store'
 
 export default defineComponent({
   setup() {
